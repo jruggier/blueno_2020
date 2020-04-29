@@ -1,0 +1,47 @@
+
+
+SELECT p.subject_id, p.dob, p.gender, a.hadm_id, a.admittime, a.dischtime, a.insurance, a.language, a.religion, a.marital_status, a.ethnicity, p.expire_flag, d.icd9_code
+    FROM ADMISSIONS a
+    INNER JOIN PATIENTS p
+    ON p.subject_id = a.subject_id
+    INNER JOIN DIAGNOSES_ICD d
+    ON d.subject_id = a.subject_id;
+
+SELECT p.subject_id, p.dob, p.gender, a.hadm_id, a.admittime, a.dischtime, a.insurance, a.language, a.religion, a.marital_status, a.ethnicity, p.expire_flag, d.icd9_code 
+    FROM DIAGNOSES_ICD d 
+    WHERE SUBJECT_ID IN (SELECT DISTINCT SUBJECT_ID FROM DIAGNOSES_ICD WHERE ICD9_CODE LIKE '2780%') 
+    INNER JOIN PATIENTS p
+    ON d.subject_id = p.subject_id
+    INNER JOIN ADMISSIONS a
+    ON d.subject_id = a.subject_id;
+
+
+
+SELECT p.subject_id, p.dob, p.gender, a.hadm_id, a.admittime, a.dischtime, a.insurance, a.language, a.religion, a.marital_status, a.ethnicity, p.expire_flag, d.icd9_code 
+    FROM DIAGNOSES_ICD d 
+    INNER JOIN PATIENTS p
+    ON d.subject_id = p.subject_id
+    INNER JOIN ADMISSIONS a
+    ON d.subject_id = a.subject_id
+    WHERE d.SUBJECT_ID IN (SELECT DISTINCT SUBJECT_ID FROM DIAGNOSES_ICD WHERE ICD9_CODE LIKE '2780%');
+
+
+!!!!!!!!!!!!!!!!!!These are for the mysql program that they published on github
+
+for ADMISSIONS:
+"SELECT SUBJECT_ID, ADMITTIME, DISCHTIME, DEATHTIME, INSURANCE, LANGUAGE, RELIGION, MARITAL_STATUS, ETHNICIITY, HOSPITAL_EXPIRE_FLAG FROM ADMISSIONS"
+
+for DIAGNOSES_ICD:
+"SELECT SUBJECT_ID< ICD9_CODE FROM DIAGNOSES_ICD"
+
+for PATIENTS:
+"SELECT SUBJECT_ID, GENDER, DOB FROM PATIENTS"
+
+for ICUSTAYS:
+"SELECT SUBJECT_ID, LOS FROM ICUSTAYS"
+
+
+
+
+
+
